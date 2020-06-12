@@ -1,14 +1,16 @@
 <template>
-  <div class="container">
-    <AppHeader></AppHeader>
-    <nuxt />
+  <div>
+    <div class="container"><AppHeader></AppHeader> <nuxt /></div>
+    <AppFooter />
   </div>
 </template>
 <script>
 import AppHeader from '../components/AppHeader'
+import AppFooter from '../components/AppFooter'
 export default {
   components: {
-    AppHeader
+    AppHeader,
+    AppFooter
   }
 }
 </script>
@@ -59,5 +61,8 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+.row {
+  width: 100%;
 }
 </style>
