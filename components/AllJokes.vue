@@ -83,6 +83,7 @@ export default {
   },
   methods: {
     async submitSearch() {
+      this.noData = ''
       if (this.search !== '') {
         this.title = `Jokes for: ${this.search}`
         this.searchJokes = true

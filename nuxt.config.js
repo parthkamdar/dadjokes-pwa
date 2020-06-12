@@ -58,5 +58,9 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  // Router Base
+  router: {
+    base: '/dadjokes-pwa/'
   }
 }
