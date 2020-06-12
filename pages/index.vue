@@ -1,9 +1,19 @@
 <template>
-  <div></div>
+  <div><FavJokes /> <AllJokes /></div>
 </template>
 
 <script>
-export default {}
+import FavJokes from '../components/FavJokes'
+import AllJokes from '../components/AllJokes'
+export default {
+  components: {
+    FavJokes,
+    AllJokes
+  }
+}
 </script>
-
-<style></style>
+<style>
+.row {
+  margin: 0px;
+}
+</style>
