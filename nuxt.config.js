@@ -5,7 +5,7 @@ export default {
    */
   // Router Base
   router: {
-    base: '/dadjokes-build/'
+    base: '/dadjokes-pwa/'
   },
   head: {
     title: process.env.npm_package_name || '',
