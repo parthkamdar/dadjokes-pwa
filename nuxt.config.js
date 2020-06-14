@@ -61,7 +61,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    publicPath: 'https://parthkamdar.github.io/dadjokes-pwa/nuxt',
+    publicPath: 'https://parthkamdar.github.io/dadjokes-pwa/',
     extend(config, ctx) {}
   }
 }
