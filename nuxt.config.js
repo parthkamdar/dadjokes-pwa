@@ -3,6 +3,10 @@ export default {
   /*
    ** Headers of the page
    */
+  // Router Base
+  router: {
+    base: '/dadjokes-build/'
+  },
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -59,8 +63,4 @@ export default {
      */
     extend(config, ctx) {}
   }
-  // Router Base
-  // router: {
-  //   base: '/dadjokes-pwa/'
-  // }
 }
