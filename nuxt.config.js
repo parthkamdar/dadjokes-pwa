@@ -30,6 +30,10 @@ export default {
         href:
           'https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap'
       }
+      // {
+      //   rel: 'stylesheet',
+      //   href: '~assets/css/responsive.css'
+      // }
     ]
   },
   /*
@@ -39,7 +43,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [{ src: '~assets/css/responsive.css', lang: 'css' }],
   /*
    ** Plugins to load before mounting the App
    */
@@ -74,6 +78,7 @@ export default {
      ** You can extend webpack config here
      */
     publicPath: 'https://parthkamdar.github.io/dadjokes-pwa/',
+    extractCSS: true,
     extend(config, ctx) {}
   }
 }

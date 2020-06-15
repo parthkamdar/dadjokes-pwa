@@ -1,0 +1,23 @@
+@media (min-width: 320px) and (max-width: 480px) {
+  .container {
+    width: 90%;
+    display: block;
+    margin: auto;
+  }
+  .card {
+    width: 100% !important;
+  }
+  .form-group {
+    width: 100% !important;
+    position: relative !important;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .pagination .row {
+    width: 100% !important;
+  }
+  .pagination .next-btn {
+    margin-left: 0% !important;
+    float: right !important;
+  }
+}
