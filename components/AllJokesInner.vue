@@ -53,7 +53,8 @@ export default {
       disablePrev: false,
       loading: true,
       like: 'Like',
-      dislike: 'Dislike'
+      dislike: 'Dislike',
+      liked: []
     }
   },
   async created() {
@@ -111,9 +112,14 @@ export default {
         }
       }
     }
-    // likeCliked() {
-    //   this.like = 'Liked'
-    // },
+    // likeClicked(joke) {
+    //   this.like = 'Liked!'
+    //   this.liked.push(joke.id)
+    //   if (process.browser) {
+    //     localStorage.setItem('liked', this.liked)
+    //   }
+    //   console.log(joke)
+    // }
     // dislikeCliked() {
     //   this.dislike = 'Disliked'
     // }
