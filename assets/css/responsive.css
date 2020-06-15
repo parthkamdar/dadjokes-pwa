@@ -13,11 +13,15 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
-  .pagination .row {
+  .input .pagination .row {
     width: 100% !important;
   }
   .pagination .next-btn {
     margin-left: 0% !important;
     float: right !important;
+  }
+  .form-control:focus {
+    outline: none !important;
+    border: 1px solid #333333 !important;
   }
 }
