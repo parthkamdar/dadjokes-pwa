@@ -29,4 +29,4 @@ workbox.precaching.cleanupOutdatedCaches()
 
 // Register route handlers for runtimeCaching
 workbox.routing.registerRoute(new RegExp('https://parthkamdar.github.io/dadjokes-pwa/'), new workbox.strategies.CacheFirst ({}), 'GET')
-workbox.routing.registerRoute(new RegExp('/'), new workbox.strategies.NetworkFirst ({}), 'GET')
+workbox.routing.registerRoute(new RegExp('/dadjokes-pwa/'), new workbox.strategies.NetworkFirst ({}), 'GET')
