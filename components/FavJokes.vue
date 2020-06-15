@@ -1,7 +1,10 @@
 <template>
-  <div class="row" v-if="loaded">
+  <div class="row">
     <h3>Editors Choice</h3>
-    <div class="cards-row row">
+    <div v-if="loading" class="row loading">
+      <img src="../assets/loading.gif" class="rounded mx-auto d-block" />
+    </div>
+    <div v-if="!loading" class="cards-row row">
       <div class="card" v-for="joke in jokes" :key="joke.id">
         <div class="card-body">
           <p>{{ joke.joke }}</p>
@@ -22,7 +25,8 @@ export default {
   data() {
     return {
       jokes: [],
-      loaded: false
+      // loaded: false,
+      loading: true
     }
   },
   async beforeCreate() {
@@ -38,7 +42,8 @@ export default {
       this.jokes.push(res.data)
       i++
     }
-    this.loaded = true
+    // this.loaded = true
+    this.loading = false
   }
 }
 </script>
@@ -72,5 +77,12 @@ h3 {
 }
 .dislike {
   float: right;
+}
+.loading {
+  width: 100%;
+}
+.loading img {
+  width: 320px;
+  height: auto;
 }
 </style>
