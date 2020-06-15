@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="container"><AppHeader></AppHeader> <nuxt /></div>
+    <div class="container">
+      <AppHeader></AppHeader>
+      <nuxt />
+    </div>
     <AppFooter />
   </div>
 </template>
@@ -64,5 +67,39 @@ html {
 }
 .row {
   width: 100%;
+}
+.like {
+  font-size: 16px;
+}
+.like img,
+.dislike img {
+  width: auto;
+  height: 15px;
+  margin-top: -5px;
+}
+.dislike img {
+  margin-top: -2px !important;
+  padding-right: 0px;
+}
+.like-options {
+  cursor: pointer;
+}
+.next-btn,
+.prev-btn,
+.next-btn:hover,
+.prev-btn:hover {
+  background-color: transparent;
+  border: 2px solid #000;
+  border-radius: 5px;
+  color: #000;
+  cursor: pointer;
+}
+.next-btn:disabled,
+.prev-btn:disabled {
+  background-color: transparent;
+  border: 2px solid #8e8686;
+  border-radius: 5px;
+  color: #333;
+  cursor: not-allowed;
 }
 </style>

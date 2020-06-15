@@ -9,8 +9,14 @@
           <p>{{ joke.joke }}</p>
           <div class="like-options">
             <hr />
-            <span class="like">Like</span>
-            <span class="dislike">Dislike</span>
+            <span class="like">
+              <img src="../assets/like.svg" />
+              {{ like }}</span
+            >
+            <span class="dislike">
+              <img src="../assets/dislike.svg" />
+              {{ dislike }}</span
+            >
           </div>
         </div>
       </div>
@@ -45,7 +51,9 @@ export default {
       page: 1,
       disableNext: false,
       disablePrev: false,
-      loading: true
+      loading: true,
+      like: 'Like',
+      dislike: 'Dislike'
     }
   },
   async created() {
@@ -103,6 +111,12 @@ export default {
         }
       }
     }
+    // likeCliked() {
+    //   this.like = 'Liked'
+    // },
+    // dislikeCliked() {
+    //   this.dislike = 'Disliked'
+    // }
   }
 }
 </script>

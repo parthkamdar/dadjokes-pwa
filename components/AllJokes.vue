@@ -28,15 +28,19 @@
             <p>{{ joke.joke }}</p>
             <div class="like-options">
               <hr />
-              <span class="like">Like</span>
-              <span class="dislike">Dislike</span>
+              <span class="like">
+                <img src="../assets/like.svg" />
+                Like
+              </span>
+              <span class="dislike">
+                <img src="../assets/dislike.svg" />
+                Dislike</span
+              >
             </div>
           </div>
         </div>
       </div>
       <div v-if="showPagination" class="pagination">
-        <!-- prettier-ignore-start -->
-
         <div class="row">
           <button
             :disabled="disablePrev"
@@ -53,7 +57,6 @@
             Next Page
           </button>
         </div>
-        <!-- prettier-ignore-end -->
       </div>
     </div>
   </div>

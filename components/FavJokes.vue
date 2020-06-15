@@ -10,8 +10,13 @@
           <p>{{ joke.joke }}</p>
           <div class="like-options">
             <hr />
-            <span class="like">Like</span>
-            <span class="dislike">Dislike</span>
+            <span class="like">
+              <img src="../assets/like.svg" />
+              Like</span
+            >
+            <span class="dislike">
+              <img src="../assets/dislike.svg" />Dislike</span
+            >
           </div>
         </div>
       </div>
@@ -84,5 +89,8 @@ h3 {
 .loading img {
   width: 320px;
   height: auto;
+}
+.dislike img {
+  padding-right: 5px;
 }
 </style>
