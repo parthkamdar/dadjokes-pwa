@@ -18,9 +18,9 @@ export default {
 }
 </script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -35,8 +35,14 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+  font-family: 'Lato', sans-serif;
 }
-
+/* body {
+  background: url('../assets/background.svg');
+  background-size: cover;
+  background-repeat: repeat;
+  bac
+} */
 .button--green {
   display: inline-block;
   border-radius: 4px;
@@ -65,8 +71,26 @@ html {
   color: #fff;
   background-color: #35495e;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 36px;
+}
 .row {
   width: 100%;
+}
+.card {
+  border: 1px solid #000;
+}
+.card-body {
+  padding-bottom: 30px;
+}
+hr {
+  border-top: 1px solid #333333;
 }
 .like {
   font-size: 16px;
@@ -87,12 +111,18 @@ html {
 .next-btn,
 .prev-btn,
 .next-btn:hover,
-.prev-btn:hover {
+.prev-btn:hover,
+.next-btn:active,
+.prev-btn:active,
+.next-btn:focus,
+.prev-btn:focus {
   background-color: transparent;
   border: 2px solid #000;
   border-radius: 5px;
   color: #000;
   cursor: pointer;
+  font-weight: 700 !important;
+  box-shadow: none;
 }
 .next-btn:disabled,
 .prev-btn:disabled {
@@ -101,5 +131,9 @@ html {
   border-radius: 5px;
   color: #333;
   cursor: not-allowed;
+}
+.pagination {
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 </style>

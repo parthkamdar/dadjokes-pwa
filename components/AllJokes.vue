@@ -176,6 +176,20 @@ h3 {
 }
 input {
   padding-right: 30px;
+  border: 1.5px solid #afafaf;
+  height: 45px;
+  font-weight: bold;
+}
+.form-control:focus {
+  outline: none;
+  border: 1px solid #333333;
+  border-color: none;
+  outline: 0;
+  box-shadow: none;
+}
+::placeholder {
+  color: #afafaf;
+  font-weight: 400;
 }
 small {
   position: absolute;
