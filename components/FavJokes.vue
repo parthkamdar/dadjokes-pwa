@@ -12,11 +12,11 @@
             <hr />
             <span class="like">
               <img src="../assets/like.svg" />
-              Like</span
-            >
+              Like
+            </span>
             <span class="dislike">
-              <img src="../assets/dislike.svg" />Dislike</span
-            >
+              <img src="../assets/dislike.svg" />Dislike
+            </span>
           </div>
         </div>
       </div>

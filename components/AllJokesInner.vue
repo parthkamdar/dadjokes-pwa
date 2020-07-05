@@ -4,6 +4,7 @@
       <img src="../assets/loading.gif" class="rounded mx-auto d-block" />
     </div>
     <div v-if="!loading" class="cards-row row">
+      <p>{{ error }}</p>
       <div class="card" v-for="joke in jokes" :key="joke.id">
         <div class="card-body">
           <p>{{ joke.joke }}</p>
@@ -11,12 +12,12 @@
             <hr />
             <span class="like">
               <img src="../assets/like.svg" />
-              {{ like }}</span
-            >
+              {{ like }}
+            </span>
             <span class="dislike">
               <img src="../assets/dislike.svg" />
-              {{ dislike }}</span
-            >
+              {{ dislike }}
+            </span>
           </div>
         </div>
       </div>
@@ -26,14 +27,14 @@
         <button
           :disabled="disablePrev"
           class="btn btn-primary prev-btn"
-          v-on:click="prevPage"
+          @click="prevPage"
         >
           Previous
         </button>
         <button
           :disabled="disableNext"
           class="btn btn-primary next-btn"
-          v-on:click="nextPage"
+          @click="nextPage"
         >
           Next
         </button>
@@ -43,6 +44,7 @@
 </template>
 <script>
 import axios from 'axios'
+
 export default {
   name: 'AllJokesInner',
   data() {
@@ -54,7 +56,8 @@ export default {
       loading: true,
       like: 'Like',
       dislike: 'Dislike',
-      liked: []
+      liked: [],
+      error: ''
     }
   },
   async created() {
@@ -64,13 +67,22 @@ export default {
         Accept: 'application/json'
       }
     }
+    // const res = await axios.get(
+    //   `https://icanhazdadjoke.com/search?page=${this.page}`,
+    //   config
+    // )
+
     const res = await axios.get(
-      `https://icanhazdadjoke.com/search?page=${this.page}`,
+      `${this.$store.state.url}/getJokes?page=${this.page}`,
       config
     )
-    this.jokes = res.data.results
-    this.loading = false
-    this.disablePrev = true
+    if (!res.data.error) {
+      this.jokes = res.data.data
+      this.loading = false
+      this.disablePrev = true
+    } else {
+      this.error = res.data.data
+    }
   },
   methods: {
     async nextPage() {
@@ -86,7 +98,7 @@ export default {
       )
       this.jokes = res.data.results
       this.loading = false
-      if (res.data.total_pages === this.page) {
+      if (res.data.pageCount === this.page) {
         this.disableNext = true
       }
       this.disablePrev = false

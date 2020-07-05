@@ -4,15 +4,15 @@
       <h3>{{ title }}</h3>
       <div class="form-group">
         <input
+          id="exampleInputEmail1"
+          v-model="search"
           type="text"
           class="form-control"
-          id="exampleInputEmail1"
           aria-describedby="emailHelp"
           placeholder="Search..."
-          v-model="search"
-          v-on:keyup.enter="submitSearch"
+          @keyup.enter="submitSearch"
         />
-        <small v-if="searchJokes" v-on:click="clearSearch">Clear</small>
+        <small v-if="searchJokes" @click="clearSearch">Clear</small>
       </div>
     </div>
     <AllJokesInner v-if="!searchJokes" />
@@ -23,7 +23,7 @@
       </div>
       <p class="no-data">{{ noData }}</p>
       <div v-if="!loading" class="cards-row row">
-        <div class="card" v-for="joke in jokes" :key="joke.id">
+        <div v-for="joke in jokes" :key="joke.id" class="card">
           <div class="card-body">
             <p>{{ joke.joke }}</p>
             <div class="like-options">
@@ -34,8 +34,8 @@
               </span>
               <span class="dislike">
                 <img src="../assets/dislike.svg" />
-                Dislike</span
-              >
+                Dislike
+              </span>
             </div>
           </div>
         </div>
@@ -45,14 +45,14 @@
           <button
             :disabled="disablePrev"
             class="btn btn-primary prev-btn"
-            v-on:click="prevPage"
+            @click="prevPage"
           >
             Previous
           </button>
           <button
             :disabled="disableNext"
             class="btn btn-primary next-btn"
-            v-on:click="nextPage"
+            @click="nextPage"
           >
             Next Page
           </button>
@@ -67,6 +67,9 @@ import AllJokesInner from '../components/AllJokesInner'
 // import SearchJokes from '../components/SearchJokes'
 export default {
   name: 'AllJokes',
+  components: {
+    AllJokesInner
+  },
   data() {
     return {
       search: '',
@@ -80,9 +83,6 @@ export default {
       noData: '',
       loading: true
     }
-  },
-  components: {
-    AllJokesInner
   },
   methods: {
     async submitSearch() {

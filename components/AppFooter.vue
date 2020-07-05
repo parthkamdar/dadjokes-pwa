@@ -1,6 +1,9 @@
 <template>
   <footer>
-    <p>Designed and Developed by <span>Parth Kamdar</span></p>
+    <p>
+      Designed and Developed by
+      <span>Parth Kamdar</span>
+    </p>
   </footer>
 </template>
 <script>

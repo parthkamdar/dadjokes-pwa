@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="cards-row row">
-      <div class="card" v-for="joke in jokes" :key="joke.id">
+      <div v-for="joke in jokes" :key="joke.id" class="card">
         <div class="card-body">
           <p>{{ joke.joke }}</p>
           <div class="like-options">
@@ -17,14 +17,14 @@
         <button
           :disabled="disablePrev"
           class="btn btn-primary prev-btn"
-          v-on:click="prevPage"
+          @click="prevPage"
         >
           Previous
         </button>
         <button
           :disabled="disableNext"
           class="btn btn-primary next-btn"
-          v-on:click="nextPage"
+          @click="nextPage"
         >
           Next
         </button>
@@ -36,6 +36,7 @@
 import axios from 'axios'
 export default {
   name: 'AllJokesInner',
+  props: ['searchValue'],
   data() {
     return {
       jokes: [],
@@ -44,7 +45,6 @@ export default {
       disablePrev: false
     }
   },
-  props: ['searchValue'],
   async created() {
     // console.log(`https://icanhazdadjoke.com/search/page=${this.page}`)
     const config = {

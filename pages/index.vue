@@ -1,13 +1,16 @@
 <template>
-  <div><FavJokes /> <AllJokes /></div>
+  <div>
+    <!-- <FavJokes /> -->
+    <AllJokes />
+  </div>
 </template>
 
 <script>
-import FavJokes from '../components/FavJokes'
+// import FavJokes from '../components/FavJokes'
 import AllJokes from '../components/AllJokes'
 export default {
   components: {
-    FavJokes,
+    // FavJokes,
     AllJokes
   }
 }
