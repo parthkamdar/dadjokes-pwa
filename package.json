@@ -19,7 +19,8 @@
     "bootstrap-vue": "^2.0.0",
     "md5": "^2.2.1",
     "nuxt": "^2.0.0",
-    "vuex": "^3.5.1"
+    "vuex": "^3.5.1",
+    "vuex-persistedstate": "^3.0.1"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",

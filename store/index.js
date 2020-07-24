@@ -1,3 +1,7 @@
+// import createPersistedState from 'vuex-persistedstate'
+
+// export const plugins = [createPersistedState]
+
 export const state = () => ({
   url: 'https://not-so-funny-api.herokuapp.com',
   loggedIn: {
@@ -13,6 +17,12 @@ export const mutations = {
       userId: response.userid
     }
     state.user = response
+  },
+  logout(state) {
+    state.loggedIn = {
+      falg: false
+    }
+    state.user = null
   }
 }
 

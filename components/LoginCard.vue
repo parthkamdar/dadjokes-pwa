@@ -95,7 +95,7 @@ export default {
             const response = res.data.data
             if (response.success) {
               this.$store.commit('setLoggedIn', response)
-              localStorage.nsfUser = this.$store.getters.getLoggedIn
+              this.closeModal()
             } else {
               this.errorFlag = true
               this.errorMsg = response.msg
@@ -142,7 +142,7 @@ export default {
               const response = res.data.data
               if (response.success) {
                 this.$store.commit('setLoggedIn', response)
-                localStorage.nsfUser = this.$store.getters.getLoggedIn
+                this.closeModal()
               } else {
                 this.errorFlag = true
                 this.errorMsg = response.msg

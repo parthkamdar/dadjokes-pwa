@@ -149,4 +149,17 @@ hr {
   margin-top: 20px;
   margin-bottom: 50px;
 }
+.user-loggedin .dropdown-toggle,
+.user-loggedin .dropdown-toggle:hover,
+.user-loggedin .dropdown-toggle:active,
+.user-loggedin .dropdown-toggle:focus {
+  background-color: transparent !important;
+  color: #333333 !important;
+  border: none !important;
+  outline: none !important;
+  margin-bottom: 0px;
+}
+.user-loggedin .dropdown-menu.show {
+  width: 100%;
+}
 </style>
