@@ -13,7 +13,7 @@ export default {
 </script>
 <style scoped>
 footer {
-  padding: 30px;
+  padding: 10px;
   background: #333;
   color: #ddd;
 }
