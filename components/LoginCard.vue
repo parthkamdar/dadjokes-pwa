@@ -5,10 +5,32 @@
         <h4>{{ title }}</h4>
         <span class="closeBtn" @click="closeModal"> X </span>
       </div>
-      <input type="text" placeholder="Username or Email" />
-      <input type="password" placeholder="Password" />
-      <button v-if="!regsiterFlag" type="button">Login</button>
-      <button v-if="regsiterFlag" type="button">Register</button>
+      <div v-if="errorFlag" class="alert alert-danger">{{ errorMsg }}</div>
+      <input
+        v-if="!regsiterFlag"
+        v-model="username"
+        type="text"
+        placeholder="Username or Email"
+      />
+      <input
+        v-if="regsiterFlag"
+        v-model="registerUsername"
+        type="text"
+        placeholder="Username"
+      />
+      <input
+        v-if="regsiterFlag"
+        v-model="registerEmail"
+        type="email"
+        placeholder="Email Address"
+      />
+      <input v-model="password" type="password" placeholder="Password" />
+      <button v-if="!regsiterFlag" type="button" @click="loginUser">
+        Login
+      </button>
+      <button v-if="regsiterFlag" type="button" @click="registerUser">
+        Register
+      </button>
       <hr />
       <p v-if="!regsiterFlag">
         Dont have an account, <span @click="registerNow">Register Now!</span>
@@ -21,11 +43,19 @@
 </template>
 
 <script>
+import axios from 'axios'
+const md5 = require('md5')
 export default {
   data() {
     return {
       title: 'Login',
-      regsiterFlag: false
+      regsiterFlag: false,
+      username: '',
+      password: '',
+      registerUsername: '',
+      registerEmail: '',
+      errorFlag: false,
+      errorMsg: ''
     }
   },
   methods: {
@@ -35,6 +65,110 @@ export default {
     registerNow() {
       this.title = 'Register'
       this.regsiterFlag = true
+      this.password = ''
+    },
+    loginNow() {
+      this.title = 'Login'
+      this.regsiterFlag = false
+      this.password = ''
+    },
+    async loginUser() {
+      this.errorFlag = false
+      this.errorMsg = ''
+      const config = {
+        headers: {
+          Accept: 'application/json'
+        }
+      }
+      if (this.username !== '') {
+        if (this.password !== '') {
+          const passwordEnc = md5(this.password)
+          const res = await axios.post(
+            `${this.$store.state.url}/users/login`,
+            {
+              username: this.username,
+              password: passwordEnc
+            },
+            config
+          )
+          if (!res.data.error) {
+            const response = res.data.data
+            if (response.success) {
+              this.$store.commit('setLoggedIn', response)
+              localStorage.nsfUser = this.$store.getters.getLoggedIn
+            } else {
+              this.errorFlag = true
+              this.errorMsg = response.msg
+            }
+          } else {
+            this.errorFlag = true
+            this.errorMsg = res.data.data.msg
+          }
+        } else {
+          // Password cannot be empty
+          this.errorFlag = true
+          this.errorMsg = 'Password cannot be empty!'
+          console.log('password is empty')
+        }
+      } else {
+        // Username cannot be empty
+        this.errorFlag = true
+        this.errorMsg = 'Username or Email cannot be empty!'
+        console.log('username is empty')
+      }
+    },
+    async registerUser() {
+      this.errorFlag = false
+      this.errorMsg = ''
+      const config = {
+        headers: {
+          Accept: 'application/json'
+        }
+      }
+      if (this.registerUsername !== '') {
+        if (this.registerEmail !== '') {
+          if (this.password !== '') {
+            const passwordEnc = md5(this.password)
+            const res = await axios.post(
+              `${this.$store.state.url}/users/register`,
+              {
+                username: this.registerUsername,
+                email: this.registerEmail,
+                password: passwordEnc
+              },
+              config
+            )
+            if (!res.data.error) {
+              const response = res.data.data
+              if (response.success) {
+                this.$store.commit('setLoggedIn', response)
+                localStorage.nsfUser = this.$store.getters.getLoggedIn
+              } else {
+                this.errorFlag = true
+                this.errorMsg = response.msg
+              }
+            } else {
+              this.errorFlag = true
+              this.errorMsg = res.data.data.msg
+            }
+          } else {
+            // Password cannot be empty
+            this.errorFlag = true
+            this.errorMsg = 'Password cannot be empty!'
+            console.log('password is empty')
+          }
+        } else {
+          // Email cannot be empty
+          this.errorFlag = true
+          this.errorMsg = 'Email cannot be empty!'
+          console.log('email is empty')
+        }
+      } else {
+        // Username cannot be empty
+        this.errorFlag = true
+        this.errorMsg = 'Username cannot be empty!'
+        console.log('username is empty')
+      }
     }
   }
 }
