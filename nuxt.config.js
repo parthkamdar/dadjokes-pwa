@@ -80,10 +80,5 @@ export default {
     publicPath: 'https://parthkamdar.github.io/dadjokes-pwa/',
     extractCSS: true,
     extend(config, ctx) {}
-  },
-  pwa: {
-    workbox: {
-      cleanupOutdatedCaches: true
-    }
   }
 }
