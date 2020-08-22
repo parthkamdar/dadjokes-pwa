@@ -1,22 +1,25 @@
 <template>
   <div class="row">
+    <div class="floatingNotification">
+      <ErrorNotification v-if="errorFlag" :error-msg="errorDispatch" />
+    </div>
     <div v-if="loading" class="row loading">
       <img src="../assets/loading.gif" class="rounded mx-auto d-block" />
     </div>
     <div v-if="!loading" class="cards-row row">
       <p>{{ error }}</p>
-      <div class="card" v-for="joke in jokes" :key="joke.id">
+      <div v-for="joke in jokes" :key="joke.id" class="card">
         <div class="card-body">
           <p>{{ joke.joke }}</p>
-          <div class="like-options">
+          <div class="like-options" @click="likeClicked(joke)">
             <hr />
-            <span class="like">
+            <span v-if="!ifLiked(joke.id)" class="like">
               <img src="../assets/like.svg" />
-              {{ like }}
+              Like
             </span>
-            <span class="dislike">
-              <img src="../assets/dislike.svg" />
-              {{ dislike }}
+            <span v-if="ifLiked(joke.id)" class="like">
+              <img src="../assets/liked.svg" />
+              Liked
             </span>
           </div>
         </div>
@@ -44,9 +47,11 @@
 </template>
 <script>
 import axios from 'axios'
+import ErrorNotification from './ErrorNotification'
 
 export default {
   name: 'AllJokesInner',
+  components: { ErrorNotification },
   data() {
     return {
       jokes: [],
@@ -57,21 +62,17 @@ export default {
       like: 'Like',
       dislike: 'Dislike',
       liked: [],
-      error: ''
+      error: '',
+      errorDispatch: '',
+      errorFlag: false
     }
   },
   async created() {
-    // console.log(`https://icanhazdadjoke.com/search/page=${this.page}`)
     const config = {
       headers: {
         Accept: 'application/json'
       }
     }
-    // const res = await axios.get(
-    //   `https://icanhazdadjoke.com/search?page=${this.page}`,
-    //   config
-    // )
-
     const res = await axios.get(
       `${this.$store.state.url}/getJokes?page=${this.page}`,
       config
@@ -83,6 +84,7 @@ export default {
     } else {
       this.error = res.data.data
     }
+    this.checkError()
   },
   methods: {
     async nextPage() {
@@ -123,18 +125,68 @@ export default {
           this.disablePrev = true
         }
       }
+    },
+    ifLiked(id) {
+      if (this.$store.getters.getLoggedIn.flag) {
+        if (this.$store.getters.getUser.liked.includes(id)) {
+          return true
+        }
+        return false
+      } else {
+        return false
+      }
+    },
+    async likeClicked(joke) {
+      if (this.$store.getters.getLoggedIn.flag) {
+        const config = {
+          headers: {
+            Accept: 'application/json',
+            username: this.$store.getters.getUser.username,
+            password: this.$store.getters.getUser.password
+          }
+        }
+        const res = await axios.post(
+          `${this.$store.state.url}/auth/like`,
+          {
+            jokeId: joke.id
+          },
+          config
+        )
+        if (!res.data.error) {
+          if (res.data.data.success) {
+            // Get Liked data
+            const res = await axios.get(
+              `${this.$store.state.url}/auth/getLikes`,
+              config
+            )
+            if (!res.data.error) {
+              this.$store.commit('setLiked', res.data.data.liked.liked)
+            } else {
+              // Request Not Success
+            }
+          } else {
+            // Oops something went wrong
+          }
+        } else {
+        }
+      } else {
+        // User Not LoggedIn
+        this.showError('Please login/register to like jokes')
+      }
+    },
+    checkError() {
+      if (this.$store.state.errorFlag) {
+        this.showError(this.$store.state.error)
+      }
+    },
+    showError(msg) {
+      this.errorFlag = true
+      this.errorDispatch = msg
+      setTimeout(() => {
+        this.errorFlag = false
+        this.$store.commit('setErrorNull')
+      }, 3000)
     }
-    // likeClicked(joke) {
-    //   this.like = 'Liked!'
-    //   this.liked.push(joke.id)
-    //   if (process.browser) {
-    //     localStorage.setItem('liked', this.liked)
-    //   }
-    //   console.log(joke)
-    // }
-    // dislikeCliked() {
-    //   this.dislike = 'Disliked'
-    // }
   }
 }
 </script>
@@ -175,6 +227,10 @@ h3 {
   left: 0;
   margin-bottom: 1rem;
 }
+.like {
+  display: block;
+  text-align: center;
+}
 .dislike {
   float: right;
 }
@@ -201,5 +257,12 @@ h3 {
 .loading img {
   width: 320px;
   height: auto;
+}
+.floatingNotification {
+  position: fixed;
+  right: 30px;
+  bottom: 0px;
+  z-index: 99;
+  max-width: 80%;
 }
 </style>

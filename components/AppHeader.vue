@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img class="logo" src="../assets/logo.svg" />
+    <nuxt-link to="/"><img class="logo" src="../assets/logo.svg"/></nuxt-link>
     <span
       v-if="!$store.state.loggedIn.flag"
       class="login-btn"
@@ -21,7 +21,9 @@
             <img src="../assets/down.svg" />
           </span>
         </template>
-        <b-dropdown-item>Liked Jokes</b-dropdown-item>
+        <b-dropdown-item
+          ><nuxt-link to="/likedJokes">Liked Jokes</nuxt-link></b-dropdown-item
+        >
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item @click="logout">Logout</b-dropdown-item>
       </b-dropdown>

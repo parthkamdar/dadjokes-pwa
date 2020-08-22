@@ -22,6 +22,7 @@ footer p {
   text-align: center;
   margin-bottom: 0px;
   font-weight: 300;
+  font-size: 0.7em;
 }
 footer span {
   font-weight: 700;

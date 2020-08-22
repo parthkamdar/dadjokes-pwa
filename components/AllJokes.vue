@@ -1,5 +1,8 @@
 <template>
   <div class="row">
+    <div class="floatingNotification">
+      <ErrorNotification v-if="errorFlag" :error-msg="errorDispatch" />
+    </div>
     <div class="row header">
       <h3>{{ title }}</h3>
       <div class="form-group">
@@ -26,15 +29,15 @@
         <div v-for="joke in jokes" :key="joke.id" class="card">
           <div class="card-body">
             <p>{{ joke.joke }}</p>
-            <div class="like-options">
+            <div class="like-options" @click="likeClicked(joke)">
               <hr />
-              <span class="like">
+              <span v-if="!ifLiked(joke.id)" class="like">
                 <img src="../assets/like.svg" />
                 Like
               </span>
-              <span class="dislike">
-                <img src="../assets/dislike.svg" />
-                Dislike
+              <span v-if="ifLiked(joke.id)" class="like">
+                <img src="../assets/liked.svg" />
+                Liked
               </span>
             </div>
           </div>
@@ -64,11 +67,14 @@
 <script>
 import axios from 'axios'
 import AllJokesInner from '../components/AllJokesInner'
+import ErrorNotification from './ErrorNotification'
+
 // import SearchJokes from '../components/SearchJokes'
 export default {
   name: 'AllJokes',
   components: {
-    AllJokesInner
+    AllJokesInner,
+    ErrorNotification
   },
   data() {
     return {
@@ -81,7 +87,9 @@ export default {
       disableNext: false,
       disablePrev: false,
       noData: '',
-      loading: true
+      loading: true,
+      errorDispatch: '',
+      errorFlag: false
     }
   },
   methods: {
@@ -156,6 +164,61 @@ export default {
       this.title = 'All Jokes'
       this.search = ''
       this.searchJokes = false
+    },
+    ifLiked(id) {
+      if (this.$store.getters.getLoggedIn.flag) {
+        if (this.$store.getters.getUser.liked.includes(id)) {
+          return true
+        }
+        return false
+      } else {
+        return false
+      }
+    },
+    async likeClicked(joke) {
+      if (this.$store.getters.getLoggedIn.flag) {
+        const config = {
+          headers: {
+            Accept: 'application/json',
+            username: this.$store.getters.getUser.username,
+            password: this.$store.getters.getUser.password
+          }
+        }
+        const res = await axios.post(
+          `${this.$store.state.url}/auth/like`,
+          {
+            jokeId: joke.id
+          },
+          config
+        )
+        if (!res.data.error) {
+          if (res.data.data.success) {
+            // Get Liked data
+            const res = await axios.get(
+              `${this.$store.state.url}/auth/getLikes`,
+              config
+            )
+            if (!res.data.error) {
+              this.$store.commit('setLiked', res.data.data.liked)
+            } else {
+              // Request Not Success
+            }
+          } else {
+            // Oops something went wrong
+          }
+        } else {
+        }
+      } else {
+        // User Not LoggedIn
+        this.showError('Please login/register to like jokes')
+      }
+    },
+    showError(msg) {
+      this.errorFlag = true
+      this.errorDispatch = msg
+      setTimeout(() => {
+        this.errorFlag = false
+      }, 3000)
     }
   }
 }
@@ -179,6 +242,7 @@ input {
   border: 1.5px solid #afafaf;
   height: 45px;
   font-weight: bold;
+  margin-bottom: 0px;
 }
 .form-control:focus {
   outline: none;
@@ -221,6 +285,10 @@ small {
   left: 0;
   margin-bottom: 1rem;
 }
+.like {
+  display: block;
+  text-align: center;
+}
 .dislike {
   float: right;
 }
@@ -254,5 +322,12 @@ small {
 .loading img {
   width: 320px;
   height: auto;
+}
+.floatingNotification {
+  position: fixed;
+  right: 30px;
+  bottom: 0px;
+  z-index: 99;
+  max-width: 80%;
 }
 </style>

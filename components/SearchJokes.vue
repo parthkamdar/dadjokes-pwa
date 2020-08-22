@@ -6,8 +6,14 @@
           <p>{{ joke.joke }}</p>
           <div class="like-options">
             <hr />
-            <span class="like">Like</span>
-            <span class="dislike">Dislike</span>
+            <span v-if="!ifLiked(joke.id)" class="like">
+              <img src="../assets/like.svg" />
+              Like
+            </span>
+            <span v-if="ifLiked(joke.id)" class="like">
+              <img src="../assets/liked.svg" />
+              Liked
+            </span>
           </div>
         </div>
       </div>
@@ -46,7 +52,6 @@ export default {
     }
   },
   async created() {
-    // console.log(`https://icanhazdadjoke.com/search/page=${this.page}`)
     const config = {
       headers: {
         Accept: 'application/json'
@@ -94,6 +99,12 @@ export default {
           this.disablePrev = true
         }
       }
+    },
+    ifLiked(id) {
+      if (this.$store.getters.getUser.liked.includes(id)) {
+        return true
+      }
+      return false
     }
   }
 }
@@ -133,6 +144,10 @@ h3 {
   bottom: 30px;
   left: 0;
   margin-bottom: 1rem;
+}
+.like {
+  display: block;
+  text-align: center;
 }
 .dislike {
   float: right;

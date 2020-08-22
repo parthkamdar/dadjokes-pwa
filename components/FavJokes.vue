@@ -5,7 +5,7 @@
       <img src="../assets/loading.gif" class="rounded mx-auto d-block" />
     </div>
     <div v-if="!loading" class="cards-row row">
-      <div class="card" v-for="joke in jokes" :key="joke.id">
+      <div v-for="joke in jokes" :key="joke.id" class="card">
         <div class="card-body">
           <p>{{ joke.joke }}</p>
           <div class="like-options">
@@ -43,7 +43,6 @@ export default {
     }
     while (i < 8) {
       const res = await axios.get('https://icanhazdadjoke.com/', config)
-      //   console.log(res.data)
       this.jokes.push(res.data)
       i++
     }

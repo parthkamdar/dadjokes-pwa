@@ -7,7 +7,9 @@ export const state = () => ({
   loggedIn: {
     flag: false
   },
-  user: null
+  user: null,
+  error: '',
+  errorFlag: false
 })
 
 export const mutations = {
@@ -18,9 +20,23 @@ export const mutations = {
     }
     state.user = response
   },
+  setUser(state, response) {
+    state.user = response
+  },
+  setLiked(state, response) {
+    state.user.liked = response
+  },
+  setError(state, response) {
+    state.error = response
+    state.errorFlag = true
+  },
+  setErrorNull(state) {
+    state.error = ''
+    state.errorFlag = false
+  },
   logout(state) {
     state.loggedIn = {
-      falg: false
+      flag: false
     }
     state.user = null
   }

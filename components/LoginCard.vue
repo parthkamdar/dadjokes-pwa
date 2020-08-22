@@ -108,13 +108,11 @@ export default {
           // Password cannot be empty
           this.errorFlag = true
           this.errorMsg = 'Password cannot be empty!'
-          console.log('password is empty')
         }
       } else {
         // Username cannot be empty
         this.errorFlag = true
         this.errorMsg = 'Username or Email cannot be empty!'
-        console.log('username is empty')
       }
     },
     async registerUser() {
@@ -155,19 +153,16 @@ export default {
             // Password cannot be empty
             this.errorFlag = true
             this.errorMsg = 'Password cannot be empty!'
-            console.log('password is empty')
           }
         } else {
           // Email cannot be empty
           this.errorFlag = true
           this.errorMsg = 'Email cannot be empty!'
-          console.log('email is empty')
         }
       } else {
         // Username cannot be empty
         this.errorFlag = true
         this.errorMsg = 'Username cannot be empty!'
-        console.log('username is empty')
       }
     }
   }
