@@ -1,0 +1,13 @@
+{
+  "appId": "com.parthkamdar.notsofunny",
+  "appName": "Not So Funny",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}
