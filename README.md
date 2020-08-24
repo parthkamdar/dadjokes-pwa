@@ -3,8 +3,9 @@
 > This is a PWA built using NuxtJs. This applications works as a direcotry for corny dad jokes. Users can browse the application for jokes and resgiter on the platform to create their own presonalised feed of likes jokes from the platform. 
 Using capacitor JS you can use this repository to create an APK files for android OS.
 
-Project Link: https://parthkamdar.github.io/dadjokes-pwa/
-Android Application Download: https://drive.google.com/file/d/1ZGOi-wj2z-1iKgKNxxVSVhSfE-dRTR_k/view?usp=sharing
+> Project Link: https://parthkamdar.github.io/dadjokes-pwa/
+
+> Android Application Download: https://drive.google.com/file/d/1ZGOi-wj2z-1iKgKNxxVSVhSfE-dRTR_k/view?usp=sharing
 
 ## Steps to install android application
  > 1. Download the APK file from the link above.
